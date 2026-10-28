@@ -10,6 +10,9 @@ import {
   Layers,
   ShieldCheck,
   ShieldAlert,
+  Send,
+  Plus,
+  QrCode,
 } from 'lucide-react';
 
 import { Header } from '@/components/Header';
@@ -597,6 +600,48 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Instant Money Transfer & UPI Quick Bar */}
+        <div className="glass-panel p-4 rounded-xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-slate-900/60 to-slate-950/40 flex flex-wrap items-center justify-between gap-4 shadow-lg shadow-emerald-950/20">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+              <Send className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-bold text-white tracking-tight">Instant Transfer & UPI Payment Hub</h3>
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Zero Fees
+                </span>
+              </div>
+              <p className="text-xs text-slate-400">
+                Send & receive money via <strong className="text-slate-200">UPI ID (VPA)</strong>, generate dynamic <strong className="text-slate-200">QR codes</strong>, or transfer to registered ApexFin user accounts.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                sounds.playTick();
+                setIsTransferOpen(true);
+              }}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-md shadow-emerald-600/30 transition active:scale-95 cursor-pointer"
+            >
+              <Send className="w-3.5 h-3.5" />
+              <span>Transfer Money (UPI / QR)</span>
+            </button>
+            <button
+              onClick={() => {
+                sounds.playTick();
+                setIsAddTxOpen(true);
+              }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-medium transition active:scale-95 cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5 text-blue-400" />
+              <span>+ New Transaction</span>
+            </button>
+          </div>
+        </div>
+
         {/* Section Navigation Tabs */}
         <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
           <div className="flex items-center gap-1.5 overflow-x-auto text-xs font-medium">
@@ -666,6 +711,18 @@ export default function DashboardPage() {
               <Receipt className="w-3.5 h-3.5" /> Ledger ({transactions.length})
             </button>
           </div>
+
+          {/* Quick Transfer Button on Tab Bar */}
+          <button
+            onClick={() => {
+              sounds.playTick();
+              setIsTransferOpen(true);
+            }}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-500/30 bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-300 text-xs font-semibold transition active:scale-95 shrink-0 cursor-pointer"
+          >
+            <Send className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Pay / UPI</span>
+          </button>
         </div>
 
         {/* Predictive Horizon Visualizer & What-If Sandbox */}

@@ -512,6 +512,23 @@ export function PaymentTransferModal({
                     className="w-full px-3 py-2 rounded-xl border border-slate-800 bg-slate-950 text-white text-xs placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 transition font-mono"
                   />
 
+                  {/* Quick UPI Handle Chips */}
+                  {transferMethod === 'upi' && (
+                    <div className="flex items-center gap-1.5 mt-1.5 overflow-x-auto text-[10px]">
+                      <span className="text-slate-500">Quick test VPAs:</span>
+                      {['alex@okapexbank', 'maya@oksbi', 'vendor@paytm', 'store@okaxis'].map((handle) => (
+                        <button
+                          key={handle}
+                          type="button"
+                          onClick={() => setRecipient(handle)}
+                          className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono border border-slate-700 transition shrink-0"
+                        >
+                          {handle}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
                   {/* Recipient Verification Status Badge */}
                   {lookupResult && (
                     <div className="mt-1.5 p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex items-center justify-between text-xs">

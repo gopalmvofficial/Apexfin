@@ -108,13 +108,14 @@ export function Header({
 
         {/* Primary Interactive Actions */}
         <div className="flex items-center gap-2 overflow-x-auto py-1">
-          {/* Pay Anyone Button */}
+          {/* Pay & Transfer UPI Button */}
           <button
             onClick={onOpenTransfer}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-500/30 bg-emerald-950/40 hover:bg-emerald-900/50 text-emerald-300 text-xs font-semibold shadow-sm transition active:scale-95 shrink-0"
+            title="Transfer Money via UPI, ApexFin ID, or QR Code"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 text-xs font-semibold shadow-sm transition active:scale-95 shrink-0"
           >
             <Send className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Pay Anyone</span>
+            <span>Transfer / UPI</span>
           </button>
 
           {/* Export PDF Report */}
