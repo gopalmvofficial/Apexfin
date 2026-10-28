@@ -21,6 +21,12 @@ export function SettingsModal({
   const [safetyBuffer, setSafetyBuffer] = useState(String(metrics?.safetyBuffer || 1500));
   const [currency, setCurrency] = useState(metrics?.currency || 'USD');
   const [name, setName] = useState('Alex Rivera');
+  const [backendUrl, setBackendUrl] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('apexfin_backend_url') || process.env.NEXT_PUBLIC_API_URL || '';
+    }
+    return '';
+  });
   const [loading, setLoading] = useState(false);
 
   React.useEffect(() => {
@@ -42,6 +48,13 @@ export function SettingsModal({
 
     setLoading(true);
     try {
+      if (typeof window !== 'undefined') {
+        if (backendUrl.trim()) {
+          localStorage.setItem('apexfin_backend_url', backendUrl.trim().replace(/\/$/, ''));
+        } else {
+          localStorage.removeItem('apexfin_backend_url');
+        }
+      }
       await onSaveSettings({
         safetyBuffer: parsedBuffer,
         currency,
@@ -59,6 +72,7 @@ export function SettingsModal({
     { code: 'USD', symbol: '$', name: 'US Dollar (USD)' },
     { code: 'EUR', symbol: '€', name: 'Euro (EUR)' },
     { code: 'GBP', symbol: '£', name: 'British Pound (GBP)' },
+    { code: 'INR', symbol: '₹', name: 'Indian Rupee (INR / UPI)' },
     { code: 'CAD', symbol: 'CA$', name: 'Canadian Dollar (CAD)' },
     { code: 'AUD', symbol: 'AU$', name: 'Australian Dollar (AUD)' },
     { code: 'IDR', symbol: 'Rp', name: 'Indonesian Rupiah (IDR)' },
@@ -140,6 +154,21 @@ export function SettingsModal({
                 </option>
               ))}
             </select>
+          </div>
+
+          {/* Backend API Gateway URL */}
+          <div>
+            <div className="flex justify-between items-center mb-1">
+              <label className="text-slate-400">Backend API URL (Render / Cloud)</label>
+              <span className="text-[10px] text-slate-500 font-mono">e.g. https://apexfin-backend.onrender.com</span>
+            </div>
+            <input
+              type="url"
+              placeholder="https://apexfin-backend.onrender.com (or empty for auto-detect)"
+              value={backendUrl}
+              onChange={(e) => setBackendUrl(e.target.value)}
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono text-xs focus:outline-hidden focus:border-blue-500"
+            />
           </div>
 
           {/* Action Buttons */}
