@@ -1,0 +1,17 @@
+{
+  "name": "ApexFin — Financial Intelligence",
+  "short_name": "ApexFin",
+  "description": "Continuous Cashflow Predictions & Monthly Recurring Obligation Intelligence",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.github
+Dockerfile
+docker-compose.yml
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env*.local
+README.md
+PRD.md
+ERD.md
+DOCUMENTATION.md
+PROGRESS.md

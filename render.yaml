@@ -1,0 +1,31 @@
+services:
+  # 1. Python FastAPI Backend Service (API, Auth, Multi-tenant DB, P2P Payments, PDF Export)
+  - type: web
+    name: apexfin-backend
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "python backend/run.py"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: PORT
+        value: 8000
+
+  # 2. Next.js 15 Frontend Web Service (Three.js 3D WebGL UI)
+  - type: web
+    name: apexfin-frontend
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: "npm ci && npm run build"
+    startCommand: "npm run start"
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.0
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: apexfin-backend
+          property: host

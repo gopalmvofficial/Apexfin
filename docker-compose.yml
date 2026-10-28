@@ -1,0 +1,19 @@
+services:
+  apexfin-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: apexfin-platform
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      # Persistent local storage for user transactions and financial database
+      - apexfin-data:/app/data
+
+volumes:
+  apexfin-data:
+    driver: local
