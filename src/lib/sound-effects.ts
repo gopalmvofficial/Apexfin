@@ -143,6 +143,66 @@ class SoundManager {
       // Silent catch
     }
   }
+
+  // Authentic UPI scanner detection laser beep
+  public playScannerBeep() {
+    if (!this.enabled) return;
+    const ctx = this.initContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1400, now);
+      osc.frequency.setValueAtTime(1800, now + 0.04);
+
+      gain.gain.setValueAtTime(0.06, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.13);
+    } catch {
+      // Silent catch
+    }
+  }
+
+  // Google Pay / Supermoney celebratory melodic payment chime
+  public playUpiSuccessChime() {
+    if (!this.enabled) return;
+    const ctx = this.initContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      // High bright melodic Glockenspiel chime: G5 -> C6 -> E6 -> G6
+      const notes = [783.99, 1046.5, 1318.51, 1567.98];
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = now + idx * 0.08;
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, start);
+
+        gain.gain.setValueAtTime(0.07, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.45);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(start);
+        osc.stop(start + 0.46);
+      });
+    } catch {
+      // Silent catch
+    }
+  }
 }
 
 export const sounds = new SoundManager();
